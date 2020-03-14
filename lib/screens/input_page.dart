@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -126,7 +128,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'WIGHT',
+                            'WEIGHT',
                             style: kLabelTextStyle,
                           ),
                           Text(
@@ -202,9 +204,22 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            BottomButton(buttonTitle: 'CALCULATE', onTap: (){
-              Navigator.pushNamed(context, '/result');
-            },)
+            BottomButton(
+              buttonTitle: 'CALCULATE',
+              onTap: () {
+                CalculatorBrain calc =
+                    CalculatorBrain(weight: weight, height: height);
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultsPage(
+                              bmi: calc.calculateBMI(),
+                              message: calc.getResult(),
+                              interpretation: calc.getInterpretation(),
+                            )));
+              },
+            )
           ],
         ));
   }

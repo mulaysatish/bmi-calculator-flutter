@@ -5,6 +5,15 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class ResultsPage extends StatelessWidget {
+  ResultsPage(
+      {@required this.bmi,
+      @required this.message,
+      @required this.interpretation});
+
+  final String bmi;
+  final String message;
+  final String interpretation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +43,21 @@ class ResultsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Overweight',
+                    message.toUpperCase(),
                     style: kBMITextStyle,
                   ),
                   Text(
-                    '28.3',
+                    bmi,
                     style: kBMIScoreTextStyle,
                   ),
-                  Text(
-                    'This is very high BMI, you should eat healthy and exercise more!!',
-                    textAlign: TextAlign.center,
-                    style: kBMIMessageTextStyle,
+                  Container(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      interpretation,
+                      textAlign: TextAlign.center,
+                      style: kBMIMessageTextStyle,
+                    ),
                   ),
-
                 ],
               ),
             ),
@@ -54,7 +65,7 @@ class ResultsPage extends StatelessWidget {
           BottomButton(
             buttonTitle: 'RE-CALCULATE',
             onTap: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pop(context);
             },
           ),
         ],
